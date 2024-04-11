@@ -46,7 +46,7 @@ class TestDate(unittest.TestCase):
         # Assert должен произойти вместе с Arrange, т.к. он используется для проверки корректности конструктора
 
         # Arrange
-        
+
         # Assert
         with self.assertRaises(ValueError, msg="День 29 не может быть в феврале 2001 (НЕвисокосный)"):
             CustomDate(29, 2, 2001)
@@ -55,9 +55,7 @@ class TestDate(unittest.TestCase):
         # Arrange
         date = CustomDate(1, 1, 1)
 
-        # Act
-
-        # Assert
+        # Act & Assert. Assert на исключение в Act
         with self.assertRaises(ValueError, msg="День 32 не может быть в январе"):
             date.set_day(32)
 
@@ -68,9 +66,7 @@ class TestDate(unittest.TestCase):
         # Arrange
         date = CustomDate(1, 1, 1)
 
-        # Act
-
-        # Assert
+        # Act & Assert. Assert на исключение в Act
         with self.assertRaises(ValueError, msg="Не может быть 13 месяц в году"):
             date.set_month(13)
 
@@ -115,11 +111,9 @@ class TestDate(unittest.TestCase):
         date = CustomDate(31, 12, 9999)
 
         # Act & Assert. Assert на исключение в Act
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(ValueError, msg="Нельзя получить следующий день, 9999 год последний"):
             date.next_day()
-
-        if context.exception is None:
-            self.fail("Нельзя получить следующий день, 9999 год последний")
+        
 
     def test_previous_day(self):
         # Arrange
@@ -146,11 +140,9 @@ class TestDate(unittest.TestCase):
         date = CustomDate(1, 1, 1)
 
         # Act & Assert. Assert на исключение в Act
-        with self.assertRaises(ValueError) as context:
+        with self.assertRaises(ValueError, msg="Нельзя получить предыдущий день, 1 год первый"):
             date.previous_day()
 
-        if context.exception is None:
-            self.fail("Нельзя получить предыдущий день, 1 год первый")
 
     def test_difference_in_days_with_first_date_earlier(self):
         # Arrange
